@@ -1,0 +1,36 @@
+@import "../../../src/style/default.less";
+.header{
+    background-color: @colorM;
+    .header-top{
+        height: 60px;
+        line-height: 60px;
+        padding: 0 20px;
+        text-align: right;
+        a{
+            margin-left: 40px;
+        }
+    }
+    .breadcrump{
+        height: 40px;
+        line-height: 40px;
+        padding: 0 20px;
+        border-top: 1px solid #f9c700;
+        .breadcrump-title{
+            text-align: right;
+            font-size: @fontC;
+            &:after{
+                position: absolute;
+                content: " ";
+                left: 202px;
+                top: 39px;
+                border-top: 9px solid @colorM;
+                border-left: 12px solid transparent;
+                border-right: 12px solid transparent;
+            }
+        }
+        .weather{
+            text-align: right;
+        }
+    }
+    
+}
