@@ -13,7 +13,7 @@ class App extends React.Component {
         <Col span="3" className="nav-left">
           <NavLeft />
         </Col>
-        <Col span="21" className="main">
+        <Col span="20" className="main">
           <Header>Header</Header>
           <Row className="content">
             {this.props.children}

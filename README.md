@@ -7,3 +7,4 @@ yarn add react-router-dom axios less-loader
 yarn eject
 
 yarn add antd
+npm install --save @ant-design/icons

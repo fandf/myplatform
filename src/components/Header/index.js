@@ -3,7 +3,6 @@ import React from "react";
 import "./index.less";
 import Util from "../../utils/utils";
 import Axios from "../../axios";
-import { Router } from "react-router-dom";
 
 export default class Header extends React.Component {
   constructor(props) {
