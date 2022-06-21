@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Carousel, Card } from "antd";
-import "./ui.less";
+import "../ui.less";
 
 const contentStyle = {
   height: "160px",

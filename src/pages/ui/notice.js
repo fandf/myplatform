@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, notification, Card } from "antd";
-import "./ui.less";
+import "../ui.less";
 
 const openNotificationWithIcon = (type) => {
   notification[type]({

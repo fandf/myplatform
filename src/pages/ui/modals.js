@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { Button, Card, Modal } from "antd";
-import "./ui.less";
+import "../ui.less";
 
 export default class Modals extends Component {
   state = {

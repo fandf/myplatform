@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Tabs, Card, message } from "antd";
 import { AndroidOutlined, AppleOutlined } from "@ant-design/icons";
-import "./ui.less";
+import "../ui.less";
 
 const { TabPane } = Tabs;
 const onChange = (key) => {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Button, Card, Spin, Alert } from "antd";
+import { Card, Spin, Alert } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import "./ui.less";
+import "../ui.less";
 
 export default class Loadings extends Component {
   render() {

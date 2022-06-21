@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, message, Card } from "antd";
-import "./ui.less";
+import "../ui.less";
 
 const info = () => {
   message.success("This is a normal message");

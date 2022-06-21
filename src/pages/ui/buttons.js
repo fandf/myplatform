@@ -9,7 +9,7 @@ import {
   LeftCircleTwoTone,
   RightCircleTwoTone,
 } from "@ant-design/icons";
-import "./ui.less";
+import "../ui.less";
 
 export default class Buttons extends Component {
   state = {

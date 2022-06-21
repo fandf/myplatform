@@ -8,3 +8,6 @@ yarn eject
 
 yarn add antd
 npm install --save @ant-design/icons
+yarn add react-redux
+yarn add redux
+yarn add config

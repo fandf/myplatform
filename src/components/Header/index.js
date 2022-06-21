@@ -2,34 +2,39 @@ import { Col, Row } from "antd";
 import React from "react";
 import "./index.less";
 import Util from "../../utils/utils";
-import Axios from "../../axios";
+import { userName } from "../../utils/constant";
+import { get } from "../../axios";
 
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { userName: "越走越远了、", sysTime: "", cityWeather: "西安" };
+    this.state = {
+      userName: sessionStorage.getItem(userName),
+      sysTime: "",
+    };
 
     setInterval(() => {
       const sysTime = Util.formateDate(new Date().getTime());
       this.setState({ sysTime });
     }, 1000);
-    this.getWeatherApiData();
+    // this.getWeatherApiData();
   }
 
-  getWeatherApiData() {
-    const res = Axios.jsonp({
-      url: "https://restapi.amap.com/v3/weather/weatherInfo?key=8c914582f7244d519d8d10f01fe586fa&city=%E8%A5%BF%E5%AE%89%E5%B8%82",
-    }).then((res) => {
-      if (res.status == 1) {
-        const { city, weather } = res.lives[0];
-        console.log(city, weather);
-        this.setState({
-          cityWeather: city + " " + weather,
-        });
-      }
-    });
-  }
+  // getWeatherApiData() {
+  //   get(
+  //     "https://restapi.amap.com/v3/weather/weatherInfo?key=8c914582f7244d519d8d10f01fe586fa&city=%E8%A5%BF%E5%AE%89%E5%B8%82",
+  //     {}
+  //   ).then((data) => {
+  //     if (data.status == 1) {
+  //       const { city, weather } = data.lives[0];
+  //       console.log(city, weather);
+  //       this.setState({
+  //         cityWeather: city + " " + weather,
+  //       });
+  //     }
+  //   });
+  // }
 
   render() {
     return (

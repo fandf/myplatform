@@ -69,26 +69,26 @@ const menuList = [
       },
     ],
   },
-  {
-    label: "富文本",
-    key: "/rich",
-  },
-  {
-    label: "城市管理",
-    key: "/city",
-  },
-  {
-    label: "订单管理",
-    key: "/order",
-  },
-  {
-    label: "员工管理",
-    key: "/user",
-  },
-  {
-    label: "车辆地图",
-    key: "/bikeMap",
-  },
+  // {
+  //   label: "富文本",
+  //   key: "/rich",
+  // },
+  // {
+  //   label: "城市管理",
+  //   key: "/city",
+  // },
+  // {
+  //   label: "订单管理",
+  //   key: "/order",
+  // },
+  // {
+  //   label: "员工管理",
+  //   key: "/user",
+  // },
+  // {
+  //   label: "车辆地图",
+  //   key: "/bikeMap",
+  // },
   {
     label: "图标",
     key: "/charts",

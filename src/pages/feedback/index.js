@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-export default class FeedBack extends Component {
+export default class index extends Component {
   render() {
-    return <div>this is FeedBack page</div>;
+    return <div>this is feedpage</div>;
   }
 }
