@@ -1,10 +1,12 @@
 import { Row, Col, ConfigProvider } from "antd";
 import "./App.css";
-import "./style/common.less";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import NavLeft from "./components/NavLeft";
 import React from "react";
+import "./style/common.less";
+import "moment/locale/zh-cn";
+import "moment/dist/locale/zh-cn";
 import zhCN from "antd/lib/locale/zh_CN";
 
 class App extends React.Component {

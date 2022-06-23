@@ -41,7 +41,6 @@ export default function SignInSide() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     loginApi(data.get("username"), data.get("password")).then((res) => {
-      console.log(res);
       if (res.code === 0) {
         sessionStorage.setItem(tokenKey, res.data.token);
         getUseInfo().then((res) => {

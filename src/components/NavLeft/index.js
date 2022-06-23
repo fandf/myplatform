@@ -3,33 +3,10 @@ import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./index.less";
 import { getPermissions } from "../../api/api";
+import Utils from "../../utils/utils";
 
 export const withNavigation = (Component) => {
   return (props) => <Component {...props} navigate={useNavigate()} />;
-};
-
-function getItem(label, key, icon, children, type) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  };
-}
-
-const formatMent = (items) => {
-  const res = [];
-  items.forEach((item) => {
-    const MenuItem = [];
-    if (item.children) {
-      item.children.forEach((children) => {
-        MenuItem.push(getItem(children.name, children.uri));
-      });
-    }
-    res.push(getItem(item.name, item.uri, null, MenuItem));
-  });
-  return res;
 };
 
 class NavLeft extends React.Component {
@@ -41,10 +18,11 @@ class NavLeft extends React.Component {
   componentDidMount() {
     getPermissions().then((res) => {
       if (res.code === 0) {
-        const menu = formatMent(res.data);
-        console.log("menu =====", menu);
+        const menu = Utils.formatMenu(res.data);
+        let current = window.location.hash.replace(/#|\?.*$/g, "");
         this.setState({
           menuConfig: menu,
+          current,
         });
       }
     });
@@ -63,7 +41,6 @@ class NavLeft extends React.Component {
           items={this.state.menuConfig}
           selectedKeys={this.state.current}
           onClick={({ item, key, keyPath, domEvent }) => {
-            console.log(" key : ", key);
             this.setState({
               current: key,
             });

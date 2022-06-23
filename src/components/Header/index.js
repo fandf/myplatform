@@ -1,9 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Col, Row } from "antd";
 import React from "react";
-import "./index.less";
 import Util from "../../utils/utils";
 import { userName } from "../../utils/constant";
-import { get } from "../../axios";
+import "./index.less";
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -28,7 +28,6 @@ export default class Header extends React.Component {
   //   ).then((data) => {
   //     if (data.status == 1) {
   //       const { city, weather } = data.lives[0];
-  //       console.log(city, weather);
   //       this.setState({
   //         cityWeather: city + " " + weather,
   //       });
@@ -47,7 +46,7 @@ export default class Header extends React.Component {
         </Row>
         <Row className="breadcrump">
           <Col span={4} className="breadcrump-title">
-            首页
+            {/* 首页 */}
           </Col>
           <Col span={20} className="weather">
             <span className="date">{this.state.sysTime}</span>

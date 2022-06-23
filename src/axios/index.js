@@ -2,21 +2,32 @@
  * 网络请求配置
  */
 import axios from "axios";
-import { message } from "antd";
+import { message, Spin } from "antd";
 import { tokenKey } from "../utils/constant";
+import ReactDOM from "react-dom";
 
 axios.defaults.timeout = 100000;
 
-const error = (msg) => {
-  message.error({
-    content: msg,
-    className: "custom-class",
-    style: {
-      marginTop: "40vh",
-      marginLeft: "90vh",
-    },
-  });
-};
+// 当前正在请求的数量
+let requestCount = 0;
+
+// 显示loading
+function showLoading() {
+  if (requestCount === 0) {
+    var dom = document.createElement("div");
+    dom.setAttribute("id", "loading");
+    document.body.appendChild(dom);
+    ReactDOM.render(<Spin tip="加载中..." size="large" />, dom);
+  }
+  requestCount++;
+}
+// 隐藏loading
+function hideLoading() {
+  requestCount--;
+  if (requestCount === 0) {
+    document.body.removeChild(document.getElementById("loading"));
+  }
+}
 /**
  * http request 拦截器
  */
@@ -24,10 +35,14 @@ axios.interceptors.request.use(
   (config) => {
     config.data = JSON.stringify(config.data);
     config.headers = {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
     };
     if (sessionStorage.getItem(tokenKey)) {
       config.headers[tokenKey] = sessionStorage.getItem(tokenKey);
+    }
+    // requestCount为0，才创建loading, 避免重复创建
+    if (config.headers.isLoading !== false) {
+      showLoading();
     }
     return config;
   },
@@ -40,15 +55,27 @@ axios.interceptors.request.use(
  * http response 拦截器
  */
 axios.interceptors.response.use(
-  (response) => {
-    // console.log("response====", response);
-    if (response.data.code === -1) {
-      error(response.data.message);
+  (res) => {
+    // 判断当前请求是否设置了不显示Loading
+    if (res.config.headers.isLoading !== false) {
+      hideLoading();
     }
-    return response;
+    if (res.data.code === -1) {
+      message.error(res.data.message);
+    }
+    if (res.data.code === -2) {
+      // window.location.href("#");
+    }
+    return res;
   },
-  (error) => {
-    console.log("请求出错：", error);
+  (err) => {
+    if (err.message === "Network Error") {
+      message.warning("网络连接异常！");
+    }
+    if (err.code === "ECONNABORTED") {
+      message.warning("请求超时，请重试");
+    }
+    return Promise.reject(err);
   }
 );
 
@@ -65,12 +92,32 @@ export function get(url, params = {}) {
         params: params,
       })
       .then((response) => {
-        landing(url, params, response.data);
+        landing(url, params, response);
         resolve(response.data);
       })
       .catch((error) => {
         reject(error);
       });
+  });
+}
+
+/**
+ * 封装del方法
+ * @param url  请求url
+ * @param data
+ * @returns {Promise}
+ */
+export function del(url, data) {
+  return new Promise((resolve, reject) => {
+    axios.delete(url, data).then(
+      (response) => {
+        //关闭进度条
+        resolve(response.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
   });
 }
 
@@ -136,9 +183,11 @@ export function put(url, data = {}) {
   });
 }
 
-//统一接口处理，返回数据
+/**
+ * 统一接口处理，返回数据
+ */
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (fecth, url, param) {
-  let _data = "";
   return new Promise((resolve, reject) => {
     switch (fecth) {
       case "get":
@@ -158,6 +207,26 @@ export default function (fecth, url, param) {
           })
           .catch(function (error) {
             console.log("get request POST failed.", error);
+            reject(error);
+          });
+        break;
+      case "put":
+        put(url, param)
+          .then(function (response) {
+            resolve(response);
+          })
+          .catch(function (error) {
+            console.log("get request PUT failed.", error);
+            reject(error);
+          });
+        break;
+      case "delete":
+        del(url, param)
+          .then(function (response) {
+            resolve(response);
+          })
+          .catch(function (error) {
+            console.log("get request DELETE failed.", error);
             reject(error);
           });
         break;
@@ -225,6 +294,13 @@ function msag(err) {
  * @param data
  */
 function landing(url, params, data) {
-  if (data.code === -1) {
+  switch (data.code) {
+    case -1:
+      alert(data.message);
+      break;
+    case -2:
+      alert("已过期，请重新登录");
+      break;
+    default:
   }
 }

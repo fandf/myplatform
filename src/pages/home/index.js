@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "./index.less";
-import { getUseInfo } from "../../api/api";
-import { userName } from "../../utils/constant";
 
 export default class Home extends Component {
   render() {
